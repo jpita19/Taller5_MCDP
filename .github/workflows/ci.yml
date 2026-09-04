@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+      - name: Instalar python
+        uses: actions/setup-python@v5
+        with: 
+          python-version: "3.12"
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
+      - name: Correr linter (ruff)
+        run: ruff check .
+      - name: Correr pruebas
+        run: pytest
